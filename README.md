@@ -215,4 +215,21 @@ To make sure my program works correctly in all situations, I created a small fun
 
 The output shows that all edge case tests were handled correctly. For invalid inputs such as empty expressions, insufficient operands, leftover operands, invalid tokens, and division by zero, the program correctly raised exceptions and printed “PASS,” meaning the error was properly detected. It also shows that valid edge cases like negative numbers and very large numbers were evaluated correctly, confirming that the stack logic works reliably even in extreme situations.
 
+# Citations
+
+ * https://www.geeksforgeeks.org/dsa/expression-tree/
+ * https://www.geeksforgeeks.org/dsa/expression-evaluation/
+ * https://takeuforward.org/data-structure/infix-to-postfix
+ * https://homepage.divms.uiowa.edu/~ghosh/2116.6.pdf
+ * https://www.w3schools.com/dsa/dsa_algo_binarytrees_postorder.php
+ * https://www.w3schools.com/dsa/dsa_algo_binarytrees_preorder.php
+ * https://www.w3schools.com/dsa/dsa_algo_binarytrees_inorder.php
+ * https://www.geeksforgeeks.org/dsa/tree-traversals-inorder-preorder-and-postorder/
+ * https://en.wikipedia.org/wiki/Tree_traversal (MOST REFERRED Webpage)
+ * https://www.geeksforgeeks.org/dsa/evaluation-of-postfix-expression/
+
+AI USAGE:
+* https://chatgpt.com/ (to understand and revise tree traversal better which was quite an important topic during my undergrad)
+
+
 
