@@ -117,8 +117,8 @@ class HomeWork2:
         return result
         
 
-
-class Stack:
+                            
+class Stack:   #  stack implementation to be used for initializing the stack for problem 3
 
     # Implement your stack using either an array or a list
     # (i.e., implement the functions based on the Stack ADT we covered in class)
@@ -128,9 +128,34 @@ class Stack:
     
     # Use your own stack implementation to solve problem 3
 
-    def __init__(self):
-        # TODO: initialize the stack
-        pass
+    def __init__(self):     # initialize the stack with an empty list and set the top index to -1
+        self.data = []
+        self.top = -1    
+    
+    def isEmpty(self):     # check if the stack is empty by comparing the top index to -1
+        return self.top == -1
+    
+    def push(self, value):   # add a value to the top of the stack by appending it to the list and incrementing the top index
+        self.data.append(value)
+        self.top += 1
+    
+    def pop(self):           # remove and return the value at the top of the stack by popping it from the list and decrementing the top index
+        if self.isEmpty():
+            raise IndexError("pop from empty stack")
+        
+        value = self.data[self.top]  # get the value at the top of the stack
+        self.data.pop()
+        self.top -= 1
+        return value
+    
+    def peek(self):                # return the value at the top of the stack without removing it by accessing it from the list using the top index
+        if self.isEmpty():
+            raise IndexError("peek from empty stack")
+        
+        return self.data[self.top]
+
+
+
 
     # Problem 3: Write code to evaluate a postfix expression using stack and return the integer value
     # Use stack which you implemented above for this problem
@@ -145,11 +170,37 @@ class Stack:
 
     # DO NOT USE EVAL function for evaluating the expression
 
-    def evaluatePostfix(exp: str) -> int:
-        # TODO: implement this using your Stack class
-        pass
+    def evaluatePostfix(self, expression: str) -> int:  # 
+        operators = {"+", "-", "*", "/"}  # set of valid operators
 
+        tokens = expression.split()   # split the input string into tokens(whitespace)
 
+        for token in tokens:
+            if token in operators:
+                if self.top < 1:    # checks if there are at least two operands on the stack before performing an operation
+                    raise ValueError(" insufficient operands")   #it raises a value error if there are not enough operands to perform the operation
+                right = self.pop()
+                left = self.pop()  # it pops the top two operands from the stack, with the right operand being the one that was most recently added to the stack and the left operand being the one that was added before that
+
+                if token == "+":    # it checks the operators below as (+,-,*,/) and performs the corresponding operation on the left & right operands, and pushes it back onto the stack
+                    self.push(left + right)
+                elif token == "-":   
+                    self.push(left - right)
+                elif token == "*":
+                    self.push(left * right)
+                elif token == "/":  # If the right operand is zero, it raises a ZeroDivisionError.
+                    if right == 0:   
+                        raise ZeroDivisionError("division by zero")   
+                    self.push(int(left / right))   # it performs integer division and pushes the result back onto the stack and 
+                                                  #the int() function is used to ensure that the result is an integer, which is important for cases where the division might result in a float.
+            else:
+                try:
+                    self.push(int(token))     # if the token is not an operator it just tries to convert it to an integer and push it back onto the stack else raises a value error.
+                except ValueError:
+                    raise ValueError(f"Invalid token: {token}")
+        if self.top != 0:      # just a small check at the end to make sure that there is exactly one element left on the stack, ff there are more or fewer elements, it raises a ValueError indicating that the postfix expression is invalid.
+            raise ValueError("Invalid postfix expression")
+        return self.pop()
 # Main Function. Do not edit the code below
 if __name__ == "__main__":
     homework2 = HomeWork2()
