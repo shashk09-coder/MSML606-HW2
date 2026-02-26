@@ -201,6 +201,71 @@ class Stack:   #  stack implementation to be used for initializing the stack for
         if self.top != 0:      # just a small check at the end to make sure that there is exactly one element left on the stack, ff there are more or fewer elements, it raises a ValueError indicating that the postfix expression is invalid.
             raise ValueError("Invalid postfix expression")
         return self.pop()
+    
+    #------------------------------------------------------Function for edge case testing------------------------------------------------------
+def run_edge_case_tests():  
+        hw = HomeWork2()
+
+       
+
+        # 1) Empty postfix
+        print("Test 1 Input: []")
+        try:
+            hw.constructBinaryTree([])
+            print("FAIL: empty list should not build a tree")
+        except ValueError:
+            print("PASS: empty postfix list handled\n")
+
+        # 2) Malformed: insufficient operands
+        print('Test 2 Input: ["3", "+"]')
+        try:
+            hw.constructBinaryTree(["3", "+"])
+            print("FAIL: should have raised ValueError")
+        except ValueError:
+            print("PASS: insufficient operands handled\n")
+
+        # 3) Malformed: leftover operands
+        print('Test 3 Input: ["3", "4", "5", "+"]')
+        try:
+            hw.constructBinaryTree(["3", "4", "5", "+"])
+            print("FAIL: should have raised ValueError")
+        except ValueError:
+            print("PASS: leftover operands handled\n")
+
+        # 4) Invalid token
+        print('Test 4 Input: ["3", "a", "+"]')
+        try:
+            hw.constructBinaryTree(["3", "a", "+"])
+            print("FAIL: should have raised ValueError")
+        except ValueError:
+            print("PASS: invalid token handled\n")
+
+        # 5) Division by zero
+        print('Test 5 Input: "5 0 /"')
+        try:
+            s = Stack()
+            s.evaluatePostfix("5 0 /")
+            print("FAIL: should have raised ZeroDivisionError")
+        except ZeroDivisionError:
+            print("PASS: division by zero handled\n")
+
+        # 6) Negative number support
+        print('Test 6 Input: "-5 2 *"')
+        s = Stack()
+        result = s.evaluatePostfix("-5 2 *")
+        if result == -10:
+            print("PASS: negative numbers handled\n")
+        else:
+            print("FAIL: negative numbers not handled correctly\n")
+
+        # 7) Large numbers
+        print('Test 7 Input: "999999999 999999999 *"')
+        s = Stack()
+        big = s.evaluatePostfix("999999999 999999999 *")
+        print("PASS: large number result computed:", big, "\n")
+
+        # Un comment the last 2 lines of the "__main__" function to run these edge case tests.
+#-------------------------------------------------------End of edge case testing function------------------------------------------------------  
 # Main Function. Do not edit the code below
 if __name__ == "__main__":
     homework2 = HomeWork2()
@@ -265,3 +330,9 @@ if __name__ == "__main__":
         except ZeroDivisionError:
             assert expected == "DIVZERO", f"Test {idx} unexpected division by zero"
             print(f"Test case {idx} passed (division by zero handled)")
+
+
+
+
+    #print("\nRUNNING EDGE CASE TESTS")              #run this to check if your code can handle edge cases. You can add more edge cases to this function as you see fit.
+    #run_edge_case_tests()                           # uncomment this line to run the edge case tests
