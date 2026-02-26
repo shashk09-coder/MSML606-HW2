@@ -66,7 +66,14 @@ class HomeWork2:
     # you can see the examples in p2_traversals.csv
 
     def prefixNotationPrint(self, head: TreeNode) -> list:
-        pass
+        if head is None:   # if the node is null it returns an empty list
+            return []
+
+        result = [head.val]   # add the current nodes value to the result list
+        result += self.prefixNotationPrint(head.left)  # recursively traverse the left subtree and add its result to the result list
+        result += self.prefixNotationPrint(head.right) # recursively traverse the right subtree and add its result to the result list
+        return result
+        
 
     # Problem 2.2: Use in-order traversal (left, root, right) for infix notation with appropriate parentheses.
     # return an array of elements of an infix expression
@@ -78,7 +85,20 @@ class HomeWork2:
     # treat parentheses as individual elements in the returned list (see output)
 
     def infixNotationPrint(self, head: TreeNode) -> list:
-        pass
+        if head is None:   # if the node is null it returns an empty list
+            return []
+
+        # leaf node
+        if head.left is None and head.right is None:  #  if the node is a leaf node return a list containing its value
+            return [head.val]
+
+        result = ["("]  # add an opening parenthesis before processing the left subtree
+        result += self.infixNotationPrint(head.left) # traverse the left subtree and add its result to the result list
+        result.append(head.val)  # add the current node's value to the result list after the left subtree
+        result += self.infixNotationPrint(head.right)  # traverse the right subtree and add its result to the result list
+        result.append(")")
+        return result
+        
 
 
     # Problem 2.3: Use post-order traversal (left, right, root) to generate postfix notation.
@@ -87,7 +107,15 @@ class HomeWork2:
     # you can see the examples in p2_traversals.csv
 
     def postfixNotationPrint(self, head: TreeNode) -> list:
-        pass
+        if head is None:   # if the node is null it returns an empty list
+            return []
+
+        result = []
+        result += self.postfixNotationPrint(head.left)  # traverse the left subtree and add its result to the result list
+        result += self.postfixNotationPrint(head.right) # traverse the right subtree and add its result to the result list
+        result.append(head.val)  # add the current node's value to the result list after processing both subtrees
+        return result
+        
 
 
 class Stack:
